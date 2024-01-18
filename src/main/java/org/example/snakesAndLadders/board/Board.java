@@ -1,12 +1,7 @@
 package org.example.snakesAndLadders.board;
 
-import org.example.db.BoardService;
 import org.example.snakesAndLadders.player.Player;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -19,7 +14,8 @@ public class Board {
 
 
     //doesn't start the repo
-    BoardService boardService = new BoardService();
+
+
 
     public Board(List<Player> players) {
         this.players = players;
@@ -60,6 +56,7 @@ public class Board {
     }
 
     public void saveBoard(){
-        squares.forEach(s -> boardService.saveBoard(s));
+
+        //squares.forEach(s -> boardService.saveBoard(s));
     }
 }

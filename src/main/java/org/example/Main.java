@@ -1,10 +1,9 @@
 package org.example;
 
-import org.example.db.BoardService;
+import org.example.db.BoardDAO;
 import org.example.snakesAndLadders.board.Board;
 import org.example.snakesAndLadders.player.Piece;
 import org.example.snakesAndLadders.player.Player;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +25,7 @@ public class Main {
             System.out.println(p1.getPosition().getValue());
         }
 
-        //board.saveBoard();
+        BoardDAO CRUD = new BoardDAO();
+        CRUD.saveFake();
     }
 }

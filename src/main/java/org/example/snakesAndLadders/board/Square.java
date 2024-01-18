@@ -15,7 +15,7 @@ public class Square {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "square", name = "wormhole")
+    @JoinColumn(referencedColumnName = "square", name = "wormhole", nullable = false)
     private Square wormhole;
 
     public Square(int value){
