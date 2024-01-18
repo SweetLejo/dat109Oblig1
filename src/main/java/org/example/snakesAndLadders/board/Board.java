@@ -17,8 +17,9 @@ public class Board {
     private List<Square> squares;
     private List<Player> players;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Autowired BoardService boardService;
+
+    //doesn't start the repo
+    BoardService boardService = new BoardService();
 
     public Board(List<Player> players) {
         this.players = players;
@@ -59,7 +60,6 @@ public class Board {
     }
 
     public void saveBoard(){
-        System.out.println(boardService);
-        //squares.forEach(s -> boardService.saveBoard(s));
+        squares.forEach(s -> boardService.saveBoard(s));
     }
 }
