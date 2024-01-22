@@ -7,27 +7,29 @@ import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
+import org.example.gui.board.grid.BoardMapGrid;
+
 public class LayeredBoardPanel extends BoardPanel {
 
 	private static final long serialVersionUID = 1L;
 	
 	private static final int BACKGROUND_LAYER = 0;
-	private static final int GRID_LAYER = 1;
+	private static final int PATH_LAYER = 1;
 	
-	private JPanel background;
-	private BoardGrid grid; 
+	private BoardMap background;
+	private BoardMapPath path; 
 	
 	private Map<String, PieceComponent> pieces;
 	
-	public LayeredBoardPanel(JPanel background, BoardGrid grid) {
+	public LayeredBoardPanel(BoardMap background, BoardMapGrid path) {
 		this.background = background;
-		this.grid = grid;
+		this.path = path;
 		this.pieces = new HashMap<>();
 		
 		JLayeredPane layerPane = new JLayeredPane();
 		
 		layerPane.add(background, BACKGROUND_LAYER);
-		layerPane.add(grid, GRID_LAYER);
+		layerPane.add(path, PATH_LAYER);
 		
 		super.add(layerPane);
 	}
@@ -35,16 +37,35 @@ public class LayeredBoardPanel extends BoardPanel {
 	@Override
 	public void addPiece(String id, PieceComponent piece) {
 		pieces.put(id, piece);
-		grid.getSquare(1).add(piece);
+		path.getSquare(1).add(piece);
 	}
 	
 	@Override
 	public void movePiece(String pieceId, int targetSquareNr) {
 		PieceComponent piece = pieces.get(pieceId);
-		JComponent targetSquare = grid.getSquare(targetSquareNr);
+		JComponent targetSquare = path.getSquare(targetSquareNr);
 		
 		targetSquare.add(piece);
-		grid.validate();
+		path.validate();
+	}
+
+	@Override
+	public PieceComponent removePiece(String id) {
+		PieceComponent piece = pieces.remove(id);
+		
+		piece.getParent().remove(piece);
+		
+		return piece;
+	}
+
+	@Override
+	public void addWormhole(WormholeComponent wormhole) {
+		background.addWormhole(wormhole);
+	}
+
+	@Override
+	public WormholeComponent removeWormhole(WormholeComponent wormhole) {
+		return background.removeWormhole(wormhole);
 	}
 
 }

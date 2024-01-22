@@ -9,14 +9,14 @@ public abstract class BoardPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
-	public abstract void addPiece(Color color);
+	public abstract void addPiece(String id, PieceComponent piece);
 	
-	public abstract void movePiece(Color color, int targetSquareNr);
+	public abstract void movePiece(String id, int targetSquareNr);
 	
-	public abstract void removePiece(Color color);
+	public abstract PieceComponent removePiece(String id);
 
-	public abstract void addWormhole(int fromSquareNr, int toSquareNr);
+	public abstract void addWormhole(WormholeComponent wormhole);
 	
-	public abstract void removeWormhole(int fromSquareNr, int toSquareNr);
+	public abstract WormholeComponent removeWormhole(WormholeComponent wormhole);
 	
 }

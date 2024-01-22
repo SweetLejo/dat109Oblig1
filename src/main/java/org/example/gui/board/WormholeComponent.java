@@ -9,12 +9,12 @@ public abstract class WormholeComponent extends JComponent {
 
 	private static final long serialVersionUID = 1L;
 	
-	protected Component startSquare;
-	protected Component endSquare;
+	protected int startSquareNr;
+	protected int endSquare;
 	
-	public WormholeComponent(Component startSquare, Component endSquare) {
-		this.startSquare = startSquare;
+	public WormholeComponent(int startSquareNr, int endSquare) {
+		this.startSquareNr = startSquareNr;
 		this.endSquare = endSquare;
 	}
-
+	
 }

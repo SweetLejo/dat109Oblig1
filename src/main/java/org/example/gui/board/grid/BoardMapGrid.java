@@ -1,14 +1,18 @@
-package org.example.gui.board;
+package org.example.gui.board.grid;
 
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public class BoardGrid extends JPanel {
+import org.example.gui.board.BoardMapPath;
+
+public class BoardMapGrid extends BoardMapPath {
 
 	private static final long serialVersionUID = 1L;
 
@@ -17,15 +21,21 @@ public class BoardGrid extends JPanel {
 	
 	protected List<JComponent> squares;
 	
-	public BoardGrid(int rows, int columns) {
-		this.rows = rows;
-		this.columns = columns;
+	public BoardMapGrid(int rows, int columns) {
+		this(rows, columns, new ArrayList<>());
 	}
 	
-	public BoardGrid(int rows, int columns, List<JComponent> squares) {
-		super(new GridBagLayout());
+	public BoardMapGrid(int rows, int columns, List<JComponent> squares) {
 		this.rows = rows;
 		this.columns = columns;
+		
+		setLayout(new GridBagLayout());
+		setSquares(squares);
+	}
+	
+	@Override
+	public void setSquares(List<JComponent> squares) {
+		this.squares = squares;
 		
 		fillGrid(squares);
 	}
@@ -35,12 +45,10 @@ public class BoardGrid extends JPanel {
 	 * Bottom row starts at 1 on the left side.
 	 * @param squares to fill grid with, mapped by their number
 	 */
-	public void fillGrid(List<JComponent> squares) {
+	protected void fillGrid(List<JComponent> squares) {
 		if(super.getComponentCount() > 0) {
 			super.removeAll();
 		}
-		
-		this.squares = squares;
 		
 		GridBagConstraints position = new GridBagConstraints();
 		
@@ -82,16 +90,22 @@ public class BoardGrid extends JPanel {
 		return index;
 	}
 	
+	@Override
+	public List<JComponent> getSquares() {
+		return squares;
+	}
+	
+	@Override
+	public JComponent getSquare(int squareNr) {
+		return squares.get(squareNr - 1);
+	}
+	
 	public int getRows() {
 		return rows;
 	}
 	
 	public int getColumns() {
 		return columns;
-	}
-	
-	public JComponent getSquare(int squareNr) {
-		return squares.get(squareNr - 1);
 	}
 	
 }
