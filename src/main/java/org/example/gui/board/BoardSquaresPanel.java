@@ -1,5 +1,5 @@
 package org.example.gui.board;
 
-public class GamePanel {
+public class BoardSquaresPanel {
 
 }
