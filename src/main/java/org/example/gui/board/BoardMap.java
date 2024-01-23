@@ -9,9 +9,7 @@ import org.example.gui.board.wormhole.WormholeComponent;
 
 public interface BoardMap {
 	
-	void addWormhole(WormholeComponent wormhole);
-	
-	WormholeComponent removeWormhole(WormholeComponent wormhole);
+	void addWormhole(int fromSquareNr, int toSquareNr);
 	
 	BoardMapSquares getPath();
 	
