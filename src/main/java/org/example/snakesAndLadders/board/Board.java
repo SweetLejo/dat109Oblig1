@@ -1,5 +1,6 @@
 package org.example.snakesAndLadders.board;
 
+import org.example.db.BoardDAO;
 import org.example.snakesAndLadders.player.Player;
 
 import java.util.List;
@@ -11,6 +12,9 @@ public class Board {
 
     private List<Square> squares;
     private List<Player> players;
+
+
+    private BoardDAO boardDAO = new BoardDAO();
 
 
     //doesn't start the repo
@@ -57,6 +61,7 @@ public class Board {
 
     public void saveBoard(){
 
-        //squares.forEach(s -> boardService.saveBoard(s));
+        squares.forEach(boardDAO::writeSquare);
+
     }
 }

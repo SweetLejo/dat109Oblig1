@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.db.BoardDAO;
+import org.example.db.PlayerDAO;
 import org.example.snakesAndLadders.board.Board;
 import org.example.snakesAndLadders.player.Piece;
 import org.example.snakesAndLadders.player.Player;
@@ -25,7 +26,9 @@ public class Main {
             System.out.println(p1.getPosition().getValue());
         }
 
-        BoardDAO CRUD = new BoardDAO();
-        CRUD.saveFake();
+        board.saveBoard();
+
+
+
     }
 }

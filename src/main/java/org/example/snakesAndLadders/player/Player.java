@@ -2,22 +2,33 @@ package org.example.snakesAndLadders.player;
 
 import org.example.snakesAndLadders.board.Square;
 
+import javax.persistence.*;
 
 
+@Entity
+@Table(name = "player", schema = "dat109_oblig1")
 public class Player {
 
+    @Id
+    @Column(name = "first_name")
     private String name;
     private Piece piece;
 
-    private Die die;
 
+    @OneToOne
+    @JoinColumn(referencedColumnName = "square", name = "place")
     private Square position;
 
+    @Transient
+    private Die die = new Die();
 
     public Player(String name, Piece piece) {
         this.name = name;
         this.piece = piece;
-        this.die = new Die();
+    }
+
+    public Player() {
+
     }
 
     public Square getPosition() {
