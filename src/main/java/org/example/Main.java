@@ -27,6 +27,7 @@ public class Main {
         }
 
         board.saveBoard();
+        board.savePlayers();
 
 
 

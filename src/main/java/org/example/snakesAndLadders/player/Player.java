@@ -12,6 +12,8 @@ public class Player {
     @Id
     @Column(name = "first_name")
     private String name;
+
+    @Transient
     private Piece piece;
 
 
