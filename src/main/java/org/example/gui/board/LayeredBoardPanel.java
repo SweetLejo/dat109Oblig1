@@ -5,9 +5,8 @@ import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 
-import org.example.gui.board.grid.BoardMapGrid;
+import org.example.gui.board.piece.PieceComponent;
 
 public class LayeredBoardPanel extends BoardPanel {
 
@@ -17,13 +16,13 @@ public class LayeredBoardPanel extends BoardPanel {
 	private static final int PATH_LAYER = 1;
 	
 	private BoardMap background;
-	private BoardMapPath path; 
+	private BoardMapSquares path; 
 	
 	private Map<String, PieceComponent> pieces;
 	
-	public LayeredBoardPanel(BoardMap background, BoardMapGrid path) {
-		this.background = background;
-		this.path = path;
+	public LayeredBoardPanel(BoardMap map) {
+		this.background = map;
+		this.path = map.getPath();
 		this.pieces = new HashMap<>();
 		
 		JLayeredPane layerPane = new JLayeredPane();
@@ -56,16 +55,6 @@ public class LayeredBoardPanel extends BoardPanel {
 		piece.getParent().remove(piece);
 		
 		return piece;
-	}
-
-	@Override
-	public void addWormhole(WormholeComponent wormhole) {
-		background.addWormhole(wormhole);
-	}
-
-	@Override
-	public WormholeComponent removeWormhole(WormholeComponent wormhole) {
-		return background.removeWormhole(wormhole);
 	}
 
 }

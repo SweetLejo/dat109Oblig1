@@ -1,9 +1,8 @@
 package org.example.gui.board;
 
-import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.JPanel;
+
+import org.example.gui.board.piece.PieceComponent;
 
 public abstract class BoardPanel extends JPanel {
 
@@ -15,8 +14,4 @@ public abstract class BoardPanel extends JPanel {
 	
 	public abstract PieceComponent removePiece(String id);
 
-	public abstract void addWormhole(WormholeComponent wormhole);
-	
-	public abstract WormholeComponent removeWormhole(WormholeComponent wormhole);
-	
 }

@@ -1,7 +1,4 @@
-package org.example.gui.board;
-
-import java.awt.Component;
-import java.awt.Graphics;
+package org.example.gui.board.wormhole;
 
 import javax.swing.JComponent;
 
