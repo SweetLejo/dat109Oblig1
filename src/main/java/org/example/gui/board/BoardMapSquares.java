@@ -5,13 +5,12 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public abstract class BoardMapSquares extends JPanel {
-
-	private static final long serialVersionUID = 1L;
+public interface BoardMapSquares {
 	
-	public abstract List<JComponent> getSquares();
+	List<JComponent> getSquares();
 	
-	public abstract JComponent getSquare(int squareNr);
+	JComponent getSquare(int squareNr);
 	
+	JComponent getComponent();
 	
 }

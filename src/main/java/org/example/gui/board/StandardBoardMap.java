@@ -1,5 +1,6 @@
 package org.example.gui.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -7,18 +8,15 @@ import javax.swing.JPanel;
 
 import org.example.gui.board.wormhole.WormholeComponent;
 
-public class StandardBoardMap extends BoardMap {
-
-	private static final long serialVersionUID = 1L;
+public class StandardBoardMap extends StandardBoardGrid implements BoardMap {
 	
-	private static final int BACKGROUND_LAYER = 0;
-	private static final int SQUARES_LAYER = 1;
-	private static final int WORMHOLE_START_LAYER = 2;
-	
-	private StandardBoardGrid squares;
 	private List<WormholeComponent> wormholes;
-	
 	private StandardBoardGrid path;
+	
+	public StandardBoardMap(int rows, int columns, List<JComponent> squares) {
+		super(rows, columns, squares);
+		this.wormholes = new ArrayList<>();
+	}
 	
 	@Override
 	public void addWormhole(WormholeComponent wormhole) {

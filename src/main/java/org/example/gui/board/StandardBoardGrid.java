@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
-public class StandardBoardGrid extends BoardMapSquares {
+public class StandardBoardGrid implements BoardMapSquares {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -18,6 +18,11 @@ public class StandardBoardGrid extends BoardMapSquares {
 		this.columns = columns;
 		this.squares = squares;
 	}
+	
+	public StandardBoardGrid(int rows, int columns, SquareFactory squareFactory) {
+		
+	}
+	
 
 	@Override
 	public List<JComponent> getSquares() {
@@ -29,6 +34,11 @@ public class StandardBoardGrid extends BoardMapSquares {
 	public JComponent getSquare(int squareNr) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public JComponent getComponent() {
+		return this;
 	}
 	
 }

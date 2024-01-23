@@ -7,14 +7,14 @@ import javax.swing.JPanel;
 
 import org.example.gui.board.wormhole.WormholeComponent;
 
-public abstract class BoardMap extends JPanel {
-
-	private static final long serialVersionUID = 1L;
+public interface BoardMap {
 	
-	public abstract void addWormhole(WormholeComponent wormhole);
+	void addWormhole(WormholeComponent wormhole);
 	
-	public abstract WormholeComponent removeWormhole(WormholeComponent wormhole);
+	WormholeComponent removeWormhole(WormholeComponent wormhole);
 	
-	public abstract BoardMapSquares getPath();
+	BoardMapSquares getPath();
+	
+	JComponent getComponent();
 	
 }
