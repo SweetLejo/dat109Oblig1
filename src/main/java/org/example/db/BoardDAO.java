@@ -1,6 +1,7 @@
 package org.example.db;
 
 
+import org.example.snakesAndLadders.board.Board;
 import org.example.snakesAndLadders.board.Square;
 
 import javax.persistence.EntityManager;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class BoardDAO {
 
-
+    private Board board;
 
 
     //do this in every method not the constructor
@@ -34,11 +35,11 @@ public class BoardDAO {
        entityManager.close();
    }
 
-   public void saveBatch(List<Square> squares){
+   public void saveBatch(){
 
        EntityManager entityManager = Persistence.createEntityManagerFactory("PERSISTENCE").createEntityManager();
        entityManager.getTransaction().begin();
-       squares.forEach(i -> entityManager.persist(i));
+       board.getSquares().forEach(entityManager::persist);
        entityManager.getTransaction().commit();
        entityManager.close();
    }

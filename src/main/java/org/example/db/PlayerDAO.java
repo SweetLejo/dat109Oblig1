@@ -8,11 +8,12 @@ import javax.persistence.Persistence;
 
 public class PlayerDAO {
 
-    public PlayerDAO() {
-
+    private Player player;
+    public PlayerDAO(Player player) {
+        this.player = player;
     }
 
-    public void addPlayer(Player player){
+    public void addPlayer(){
         EntityManager entityManager = Persistence.createEntityManagerFactory("PERSISTENCE").createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(player);

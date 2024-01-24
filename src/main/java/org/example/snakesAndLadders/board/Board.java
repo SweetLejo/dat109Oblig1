@@ -15,12 +15,6 @@ public class Board {
     private List<Player> players;
 
 
-
-
-    //doesn't start the repo
-
-
-
     public Board(List<Player> players) {
         this.players = players;
         squares = IntStream.rangeClosed(1, 100).mapToObj(Square::new).toList();
@@ -59,13 +53,19 @@ public class Board {
         }
     }
 
-    public void saveBoard(){
-        BoardDAO boardDAO = new BoardDAO();
-        boardDAO.saveBatch(squares);
+    public List<Square> getSquares() {
+        return squares;
     }
 
-    public void savePlayers(){
-        PlayerDAO playerDAO = new PlayerDAO();
-        players.forEach(playerDAO::addPlayer);
+    public void setSquares(List<Square> squares) {
+        this.squares = squares;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 }

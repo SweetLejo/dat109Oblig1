@@ -26,8 +26,6 @@ public class Main {
             System.out.println(p1.getPosition().getValue());
         }
 
-        board.saveBoard();
-        board.savePlayers();
 
 
 
