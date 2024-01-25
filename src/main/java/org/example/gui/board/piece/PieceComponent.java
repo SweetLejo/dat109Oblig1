@@ -18,4 +18,12 @@ public abstract class PieceComponent extends JComponent {
 		this(1);
 	}
 	
+	public int getCurrentSquareNr() {
+		return currentSquareNr;
+	}
+	
+	public void setCurrentSquareNr(int currentSquareNr) {
+		this.currentSquareNr = currentSquareNr;
+	}
+	
 }

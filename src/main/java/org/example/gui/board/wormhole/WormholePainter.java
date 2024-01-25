@@ -7,36 +7,34 @@ import javax.swing.JComponent;
 
 import org.example.gui.board.BoardMapSquares;
 
-public abstract class WormholeComponent extends JComponent {
+public abstract class WormholePainter {
 
 	public enum Type {
 		LADDER, SNAKE
 	}
 	
-	private static final long serialVersionUID = 1L;
-	
 	protected int startSquareNr;
 	protected int endSquareNr;
 	protected Type type;
 	
-	public WormholeComponent(int startSquareNr, int endSquareNr) {
+	public WormholePainter(int startSquareNr, int endSquareNr) {
 		this.startSquareNr = startSquareNr;
 		this.endSquareNr = endSquareNr;
 		this.type = startSquareNr > endSquareNr ? Type.LADDER : Type.SNAKE;
 	}
 	
-	public abstract void paint(Graphics g, Rectangle from, Rectangle to);
-	
-	public int getStartSquareNr() {
-		return startSquareNr;
-	}
-	
-	public int getEndSquareNr() {
-		return endSquareNr;
-	}
+	public abstract void drawWormhole(Graphics g, Rectangle from, Rectangle to);
 	
 	public Type getType() {
 		return type;
+	}
+	
+	public int getStartSquareNr() {
+		return startSquareNr;
+	}	
+	
+	public int getEndSquareNr() {
+		return endSquareNr;
 	}
 	
 }
