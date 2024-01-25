@@ -1,7 +1,5 @@
 package org.example.snakesAndLadders.board;
 
-import org.example.db.BoardDAO;
-import org.example.db.PlayerDAO;
 import org.example.snakesAndLadders.player.Player;
 
 import java.util.List;
@@ -44,7 +42,7 @@ public class Board {
 
     public void round(){
         for(Player p : players){
-            int move = p.getDie().roll() + p.getPosition().getValue();
+            int move = p.roll() + p.getPosition().getValue();
             if(move < 100){
                 Square newPos = squares.get(move).getWormhole() == null ? squares.get(move) : squares.get(move).getWormhole();
                 p.setPosition(newPos);
