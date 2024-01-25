@@ -1,6 +1,7 @@
 package org.example.gui.board;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,51 +9,72 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import org.example.gui.board.wormhole.WormholeComponent;
 
-public class StandardBoardMap extends StandardBoardGrid implements BoardMap {
+public class StandardBoardMap extends JLayeredPane implements BoardMap {
 	
-	private static final int ROWS = 10;
-	private static final int COLUMNS = 10;
+	private static final long serialVersionUID = 1L;
 	
-	private BoardComponentFactory componentFactory;
+	private static final int MAP_GRID_LAYER = 1;
+	private static final int WORMHOLES_LAYER = 2;
 	
+	private StandardBoardGrid mapGrid;
+	private StandardBoardGrid pathGrid;
+	private JPanel wormholesPanel;
 	private List<WormholeComponent> wormholes;
-	private StandardBoardGrid path;
 	
-	private StandardBoardMap(BoardComponentFactory componentFactory) {
-		super(ROWS, COLUMNS);
+	public StandardBoardMap(int rows, int columns) {
+		this.mapGrid = new StandardBoardGrid(rows, columns);
+		this.pathGrid = new StandardBoardGrid(rows, columns);
+		this.wormholePanel = new JPanel(null);
 		this.wormholes = new ArrayList<>();
-		this.path = new StandardBoardGrid(ROWS, COLUMNS);
-		
-		fillGrid(this::createGridSquare);
-		path.fillGrid(this::createPathSquare);
+
+		super.add(mapGrid, MAP_GRID_LAYER);
+		super.add(wormholesPanel, MAP_GRID_LAYER);
 	}
 	
-	protected JComponent createGridSquare(int squareNr) {
-		JPanel panel = new JPanel();
-		
-		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
-		JLabel label = new JLabel("" + squareNr);
-		return null; // TODO
+	public void fillMapSquares(List<JComponent> squares) {
+		mapGrid.fillGrid(squares);
 	}
 	
-	protected JComponent createPathSquare(int squareNr) {
-		return new JPanel(new GridLayout(2, 2));
+	public void fillPathSquares(List<JComponent> squares) {
+		pathGrid.fillGrid(squares);
+	}
+	
+	public void addWormhole(WormholeComponent wormhole) {
+		wormholes.add(wormhole);
+	}
+	
+	public void addWormholes(List<WormholeComponent> wormholes) {
+		this.wormholes.addAll(wormholes);
 	}
 	
 	@Override
-	public void addWormhole(int fromSquareNr, int toSquareNr) {
-		// TODO Auto-generated method stub
-		
+	public void paint(Graphics g) {
+		super.paint(g);
+		paintWormholes(g);
+	}
+	
+	protected void paintWormholes(Graphics g) {
+		wormholes.forEach(w -> {
+			JComponent start = mapGrid.getSquare(w.getStartSquareNr());
+			JComponent end = mapGrid.getSquare(w.getEndSquareNr());
+			
+			w.paint(g, start, end);
+		});
+	}
+	
+	@Override
+	public BoardMapSquares getPath() {
+		return pathGrid;
 	}
 
 	@Override
-	public BoardMapSquares getPath() {
-		return path;
+	public JComponent getComponent() {
+		return this;
 	}
 
 }

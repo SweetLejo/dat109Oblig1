@@ -15,20 +15,19 @@ public class LayeredBoardPanel extends BoardPanel {
 	private static final int BACKGROUND_LAYER = 0;
 	private static final int PATH_LAYER = 1;
 	
-	private BoardMap background;
+	private BoardMap map;
 	private BoardMapSquares path; 
-	
 	private Map<String, PieceComponent> pieces;
 	
 	public LayeredBoardPanel(BoardMap map) {
-		this.background = map;
+		this.map = map;
 		this.path = map.getPath();
 		this.pieces = new HashMap<>();
 		
 		JLayeredPane layerPane = new JLayeredPane();
 		
-		layerPane.add(background, BACKGROUND_LAYER);
-		layerPane.add(path, PATH_LAYER);
+		layerPane.add(map.getComponent(), BACKGROUND_LAYER);
+		layerPane.add(path.getComponent(), PATH_LAYER);
 		
 		super.add(layerPane);
 	}
@@ -45,7 +44,7 @@ public class LayeredBoardPanel extends BoardPanel {
 		JComponent targetSquare = path.getSquare(targetSquareNr);
 		
 		targetSquare.add(piece);
-		path.validate();
+		path.getComponent().revalidate();
 	}
 
 	@Override

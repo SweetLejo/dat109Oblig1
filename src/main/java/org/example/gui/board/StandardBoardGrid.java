@@ -6,7 +6,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 import javax.swing.JComponent;
@@ -18,80 +20,101 @@ public class StandardBoardGrid extends JPanel implements BoardMapSquares {
 	
 	private final int amountOfRows;
 	private final int amountOfColumns;
-	
-	private List<JComponent> squares;
+	private Map<Integer, GridCell> cells = new HashMap<>();
 
 	public StandardBoardGrid(int amountOfRows, int amountOfColumns) {
+		super(new GridBagLayout());
 		this.amountOfRows = amountOfRows;
 		this.amountOfColumns = amountOfColumns;
-
-		for()
+		this.cells = new HashMap<>();
 		
-	}
-
-	public void fillGrid(Function<Integer, JComponent> squareSupplier) {
-		List<JComponent> squares = new ArrayList<>();
+		int squareNr = 1;
 		
-		for(int i = 1; i < getGridSize(); i++) {
-			squares.add(squareSupplier.apply(i));
+		for(int i = 0; i < amountOfRows; i++) {
+			for(int j = 0; i % 2 == 0 && j < amountOfColumns; j++) {
+				cells.put(squareNr++, new GridCell(j, i));
+			}
+			for(int j = amountOfColumns - 1; i % 2 != 0 && j >= 0; j--) {
+				cells.put(squareNr++, new GridCell(j, i));
+			}
 		}
+	}
+	
+	public StandardBoardGrid(int amountOfRows, int amountOfColumns, 
+			List<JComponent> squares) {
+		this(amountOfRows, amountOfColumns);
 		
 		fillGrid(squares);
 	}
 	
-	public void fillGrid(List<JComponent> squares) {	
-		if(squares.size() != getGridSize()) {
-			throw new IllegalArgumentException("Square amount doesn't match grid size");
-		}
-
-		squares.forEach(super::remove);
-		this.squares = squares;
-		
-		GridBagConstraints position = new GridBagConstraints();
-		
-		// Start at the bottom left of the grid
-		position.gridy = amountOfRows - 1;
-		position.gridx = 0;
-		
-		boolean leftToRight = true;
-		int squareIndex = 1;
-		
-		// Iterate upwards over each row
-		for(; position.gridy >= 0; position.gridy--) {
-			// Fill each column in the row from left to right
-			for(; leftToRight && position.gridx < amountOfColumns; position.gridx++) {
-				add(squares.get(squareIndex++), position);
-			}
-			// Or fill from right to left
-			for(; !leftToRight && position.gridx >= 0; position.gridx--) {
-				add(squares.get(squareIndex++), position);
-			}
-			
-			leftToRight = !leftToRight;
+	public void fillGrid(List<JComponent> squares) {
+		for(int i = 0; i < squares.size(); i++) {
+			setSquare(i + 1, squares.get(i));
 		}
 	}
+ 
+	public void setSquare(int squareNr, JComponent square) {
+		GridCell cell = cells.get(squareNr);
 
-	/**
-	 * @return amount of squares needed to fill the grid
-	 */
-	public int getGridSize() {
-		return amountOfRows * amountOfColumns;
+		if(cell.hasSquare()) {
+			remove(square);
+		}
+		
+		cell.setSquare(square);
+		add(square, cell.getGridBagConstraints());
 	}
 	
 	@Override
-	public List<JComponent> getSquares() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public JComponent getSquare(int squareNr) {
-		return squares.get(squareNr - 1);
+		return cells.get(squareNr).getSquare();
 	}
 
 	@Override
 	public JComponent getComponent() {
 		return this;
+	}
+	
+	public int getGridSize() {
+		return amountOfRows * amountOfColumns;
+	}
+
+	private static class GridCell {
+		
+		private final int row;
+		private final int column;
+		private JComponent square;
+		
+		public GridCell(int row, int column, JComponent square) {
+			this.row = row;
+			this.column = column;
+			this.square = square;
+		}
+		
+		public GridCell(int row, int column) {
+			this(row, column, null);
+		}
+		
+		public JComponent getSquare() {
+			return square;
+		}
+		
+		public void setSquare(JComponent square) {
+			this.square = square;
+		}
+		
+		public boolean hasSquare() {
+			return square != null;
+		}
+		 
+		public GridBagConstraints getGridBagConstraints() {
+			GridBagConstraints gbc = new GridBagConstraints();
+			
+			gbc.gridx = row;
+			gbc.gridy = column;
+			
+			return gbc;
+		}
+		
 	}
 	
 }

@@ -7,8 +7,6 @@ import javax.swing.JPanel;
 
 public interface BoardMapSquares {
 	
-	List<JComponent> getSquares();
-	
 	JComponent getSquare(int squareNr);
 	
 	JComponent getComponent();
