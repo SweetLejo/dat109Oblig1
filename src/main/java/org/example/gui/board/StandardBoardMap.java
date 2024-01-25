@@ -1,8 +1,12 @@
 package org.example.gui.board;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +26,7 @@ public class StandardBoardMap extends JLayeredPane implements BoardMap {
 	private static final long serialVersionUID = 1L;
 	
 	private static final int BACKGROUND_LAYER = 0;
-	private static final int MAP_GRID_LAYER = 1;
+	private static final int SQUARES_LAYER = 1;
 	private static final int WORMHOLES_LAYER = 2;
 	private static final int PATH_LAYER = 3;
 	
@@ -42,22 +46,37 @@ public class StandardBoardMap extends JLayeredPane implements BoardMap {
 		this.squares = new StandardBoardGrid(rows, columns);
 		this.wormholes = new StandardBoardWormholes(squares);
 		this.path = new StandardBoardGrid(rows, columns);
-		this.pieces = new HashMap<>();
-
-		add(background, BACKGROUND_LAYER);
-		add(squares, MAP_GRID_LAYER);
-		add(wormholes, WORMHOLES_LAYER);
-		add(path, PATH_LAYER);
+		this.pieces = new HashMap<>(); 
+		
+		squares.setOpaque(false);
+		wormholes.setOpaque(false);
+		path.setOpaque(false);
+		
+		add(background, BACKGROUND_LAYER, 0);
+		add(squares, SQUARES_LAYER, 0);
+		add(wormholes, WORMHOLES_LAYER, 0);
+		add(path, PATH_LAYER, 0);
 	}
+	
+	@Override
+    public void doLayout() {
+        synchronized(getTreeLock()) {
+            int w = getWidth();
+            int h = getHeight();
+            for(Component c : getComponents()) {
+                c.setBounds(0, 0, w, h);
+                c.setLocation(0, 0);
+            }
+        }
+    }
 	
 	public void setBackground(JComponent background) {
-		replace(this.background, background, BACKGROUND_LAYER);
+		if(this.background != null) {
+			remove(this.background);
+		}
+		
+		add(background, BACKGROUND_LAYER);
 		this.background = background;
-	}
-	
-	protected void replace(JComponent old, JComponent replacement, int layer) {
-		remove(old);
-		add(replacement, layer);
 	}
 	
 	public void fillMapSquares(List<JComponent> squareComponents) {
@@ -104,5 +123,24 @@ public class StandardBoardMap extends JLayeredPane implements BoardMap {
 	public JComponent getComponent() {
 		return this;
 	}
+	
+	public int getGridSize() {
+		return squares.getGridSize();
+	}
 
+	public StandardBoardGrid getSquares() {
+		return squares;
+	}
+
+	public StandardBoardWormholes getWormholes() {
+		return wormholes;
+	}
+
+	public StandardBoardGrid getPath() {
+		return path;
+	}
+
+	public Map<String, PieceComponent> getPieces() {
+		return pieces;
+	}
 }

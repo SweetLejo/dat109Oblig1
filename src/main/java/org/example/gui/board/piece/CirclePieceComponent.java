@@ -7,6 +7,15 @@ import java.awt.Rectangle;
 public class CirclePieceComponent extends PieceComponent {
 
 	private Color color;
+	
+	public CirclePieceComponent(Color color) {
+		this.color = color;
+	}
+	
+	public CirclePieceComponent(int currentSquareNr, Color color) {
+		super(currentSquareNr);
+		this.color = color;
+	}
 
 	@Override
 	public void paint(Graphics g) {

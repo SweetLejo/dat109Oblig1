@@ -30,11 +30,11 @@ public class StandardBoardGrid extends JPanel implements BoardMapSquares {
 		
 		int squareNr = 1;
 		
-		for(int i = 0; i < amountOfRows; i++) {
-			for(int j = 0; i % 2 == 0 && j < amountOfColumns; j++) {
+		for(int i = amountOfRows - 1; i >= 0 ; i--) {
+			for(int j = 0; i % 2 != 0 && j < amountOfColumns; j++) {
 				cells.put(squareNr++, new GridCell(j, i));
 			}
-			for(int j = amountOfColumns - 1; i % 2 != 0 && j >= 0; j--) {
+			for(int j = amountOfColumns - 1; i % 2 == 0 && j >= 0; j--) {
 				cells.put(squareNr++, new GridCell(j, i));
 			}
 		}
@@ -109,6 +109,7 @@ public class StandardBoardGrid extends JPanel implements BoardMapSquares {
 		public GridBagConstraints getGridBagConstraints() {
 			GridBagConstraints gbc = new GridBagConstraints();
 			
+			gbc.fill = GridBagConstraints.BOTH;
 			gbc.gridx = row;
 			gbc.gridy = column;
 			

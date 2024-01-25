@@ -17,16 +17,9 @@ public class Board {
     private List<Square> squares;
     private List<Player> players;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Autowired BoardService boardService;
 
     public Board(List<Player> players) {
-        this.players = players;
-        squares = IntStream.rangeClosed(1, 100).mapToObj(Square::new).toList();
 
-        setWormHoles();
-
-        players.forEach(p -> p.setPosition(squares.getFirst()));
 
     }
 
@@ -58,8 +51,4 @@ public class Board {
         }
     }
 
-    public void saveBoard(){
-        System.out.println(boardService);
-        //squares.forEach(s -> boardService.saveBoard(s));
-    }
 }
