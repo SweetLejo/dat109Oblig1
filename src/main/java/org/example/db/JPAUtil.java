@@ -1,4 +1,5 @@
 package org.example.db;
 
-public class BoardDAO {
+public class JPAUtil {
+
 }

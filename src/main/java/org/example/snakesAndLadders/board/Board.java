@@ -13,10 +13,6 @@ public class Board {
     private List<Player> players;
 
 
-    //doesn't start the repo
-
-
-
     public Board(List<Player> players) {
         this.players = players;
         squares = IntStream.rangeClosed(1, 100).mapToObj(Square::new).toList();
@@ -46,7 +42,7 @@ public class Board {
 
     public void round(){
         for(Player p : players){
-            int move = p.getDie().roll() + p.getPosition().getValue();
+            int move = p.roll() + p.getPosition().getValue();
             if(move < 100){
                 Square newPos = squares.get(move).getWormhole() == null ? squares.get(move) : squares.get(move).getWormhole();
                 p.setPosition(newPos);
@@ -55,8 +51,19 @@ public class Board {
         }
     }
 
-    public void saveBoard(){
+    public List<Square> getSquares() {
+        return squares;
+    }
 
-        //squares.forEach(s -> boardService.saveBoard(s));
+    public void setSquares(List<Square> squares) {
+        this.squares = squares;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 }
