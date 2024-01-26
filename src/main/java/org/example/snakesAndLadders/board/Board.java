@@ -24,6 +24,11 @@ public class Board {
     public Board() {
 
     }
+    
+    public static Board createNewBoard(int amountOfPlayers) {
+    	// TODO
+    	return null;
+    }
 /*
     public Board(List<Square> squares){
         this.squares = squares;
