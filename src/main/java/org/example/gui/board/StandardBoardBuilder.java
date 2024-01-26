@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
-import org.example.gui.board.piece.PieceComponent;
+import org.example.gui.board.piece.PiecePainter;
 import org.example.gui.board.wormhole.WormholePainter;
 
 public class StandardBoardBuilder {
@@ -27,12 +27,6 @@ public class StandardBoardBuilder {
 		return this;
 	}
 	
-	public StandardBoardBuilder withPathSquares(SquareFactory squareFactory) {
-		map.fillPathSquares(squareFactory.createList(map.getGridSize()));
-		
-		return this;
-	}
-	
 	public StandardBoardBuilder addWormhole(WormholePainter wormhole) {
 		map.addWormhole(wormhole);
 		
@@ -45,7 +39,7 @@ public class StandardBoardBuilder {
 		return this;
 	}
 	
-	public StandardBoardBuilder addPiece(String id, PieceComponent piece) {
+	public StandardBoardBuilder addPiece(String id, PiecePainter piece) {
 		map.addPiece(id, piece);
 		
 		return this;

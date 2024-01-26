@@ -9,14 +9,14 @@ import javax.swing.JPanel;
 
 import org.example.gui.board.wormhole.WormholePainter;
 
-public class StandardBoardWormholes extends JPanel {
+public class StandardWormholesPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
 	private BoardMapSquares squares;
 	private List<WormholePainter> wormholes;
 	
-	public StandardBoardWormholes(BoardMapSquares squares) {
+	public StandardWormholesPanel(BoardMapSquares squares) {
 		super(null);
 		this.squares = squares;
 		this.wormholes = new ArrayList<>();

@@ -110,6 +110,8 @@ public class StandardBoardGrid extends JPanel implements BoardMapSquares {
 			GridBagConstraints gbc = new GridBagConstraints();
 			
 			gbc.fill = GridBagConstraints.BOTH;
+			gbc.weightx = 1.0; 
+			gbc.weighty = 1.0; 
 			gbc.gridx = row;
 			gbc.gridy = column;
 			

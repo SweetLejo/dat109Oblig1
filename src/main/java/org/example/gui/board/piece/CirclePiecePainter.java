@@ -4,22 +4,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class CirclePieceComponent extends PieceComponent {
+public class CirclePiecePainter extends PiecePainter {
 
 	private Color color;
 	
-	public CirclePieceComponent(Color color) {
+	public CirclePiecePainter(Color color) {
 		this.color = color;
 	}
 	
-	public CirclePieceComponent(int currentSquareNr, Color color) {
+	public CirclePiecePainter(int currentSquareNr, Color color) {
 		super(currentSquareNr);
 		this.color = color;
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		Rectangle bounds = g.getClipBounds();
+	public void drawPiece(Graphics g, Rectangle bounds) {
 		int x = (int) bounds.getX();
 		int y = (int) bounds.getY();
 		int width = (int) bounds.getWidth();

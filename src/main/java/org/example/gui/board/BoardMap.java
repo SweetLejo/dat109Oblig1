@@ -5,7 +5,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import org.example.gui.board.piece.PieceComponent;
+import org.example.gui.board.piece.PiecePainter;
 import org.example.gui.board.wormhole.WormholePainter;
 
 public interface BoardMap {
@@ -17,7 +17,7 @@ public interface BoardMap {
 	 * @param id used to move or remove piece.
 	 * @param piece component to place on the board.
 	 */
-	void addPiece(String id, PieceComponent piece);
+	void addPiece(String id, PiecePainter piece);
 	
 	/**
 	 * Moves piece with given id to the target square.
@@ -31,7 +31,7 @@ public interface BoardMap {
 	 * @param id of piece
 	 * @return the removed PieceComponent
 	 */
-	PieceComponent removePiece(String id);
+	PiecePainter removePiece(String id);
 	
 	/**
 	 * Adds a new wormhole to the board.

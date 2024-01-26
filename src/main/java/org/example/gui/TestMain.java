@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 
 import org.example.gui.board.StandardBoardBuilder;
 import org.example.gui.board.StandardBoardMap;
-import org.example.gui.board.piece.CirclePieceComponent;
-import org.example.gui.board.piece.PieceComponent;
+import org.example.gui.board.piece.CirclePiecePainter;
+import org.example.gui.board.piece.PiecePainter;
 import org.example.gui.board.wormhole.LineWormholePainter;
 import org.example.gui.board.wormhole.WormholePainter;
 import org.example.snakesAndLadders.board.Board;
@@ -40,14 +40,19 @@ public class TestMain {
 		System.out.println(map.getSize());
 		System.out.println(map.getSquares().getSize());
 		System.out.println(map.getWormholes().getSize());
-		System.out.println(map.getPath().getSize());
+		System.out.println(map.getPieces().getSize());
 		System.out.println(map.getSquares().getSquare(1).getSize());
+		
+		long start = System.currentTimeMillis();
+	
+		while(System.currentTimeMillis() < start + 1000);
+		
+		map.movePiece("2", 6);
 	}
 	
 	private static StandardBoardMap createSimpleMap() {
 		return new StandardBoardBuilder()
 				.withMapSquares(TestMain::createMapSquare)
-				.withPathSquares(TestMain::createPathSquare)
 				.addWormholes(createWormholes())
 				.addPiece("1", createPiece(1, Color.BLUE))
 				.addPiece("2", createPiece(1, Color.PINK))
@@ -73,10 +78,6 @@ public class TestMain {
 		return panel;
 	}
 	
-	private static JComponent createPathSquare(int squareNr) {
-		return new JPanel(new GridLayout(2, 2));
-	}
-	
 	private static List<WormholePainter> createWormholes() {
 		List<WormholePainter> wormholes = new ArrayList<>();
 		Random random = new Random();
@@ -95,8 +96,8 @@ public class TestMain {
 		return new LineWormholePainter(fromSquareNr, toSquareNr);
 	}
 	
-	private static PieceComponent createPiece(int currentSquareNr, Color color) {
-		return new CirclePieceComponent(currentSquareNr, color);
+	private static PiecePainter createPiece(int currentSquareNr, Color color) {
+		return new CirclePiecePainter(currentSquareNr, color);
 	}
 	
 }

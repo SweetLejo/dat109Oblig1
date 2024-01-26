@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-import org.example.gui.board.piece.PieceComponent;
+import org.example.gui.board.piece.PiecePainter;
 import org.example.gui.board.wormhole.WormholePainter;
 
 public class StandardBoardMap extends JLayeredPane implements BoardMap {
@@ -32,11 +32,9 @@ public class StandardBoardMap extends JLayeredPane implements BoardMap {
 	
 	private JComponent background;
 	private StandardBoardGrid squares;
-	private StandardBoardWormholes wormholes;
-	private StandardBoardGrid path;
-	
-	private Map<String, PieceComponent> pieces;
-	
+	private StandardWormholesPanel wormholes;
+	private StandardPiecesPanel pieces;
+
 	public StandardBoardMap() {
 		this(10, 10);
 	}
@@ -44,18 +42,17 @@ public class StandardBoardMap extends JLayeredPane implements BoardMap {
 	public StandardBoardMap(int rows, int columns) {
 		this.background = new JPanel();
 		this.squares = new StandardBoardGrid(rows, columns);
-		this.wormholes = new StandardBoardWormholes(squares);
-		this.path = new StandardBoardGrid(rows, columns);
-		this.pieces = new HashMap<>(); 
+		this.wormholes = new StandardWormholesPanel(squares);
+		this.pieces = new StandardPiecesPanel(squares);
 		
 		squares.setOpaque(false);
 		wormholes.setOpaque(false);
-		path.setOpaque(false);
+		pieces.setOpaque(false);
 		
 		add(background, BACKGROUND_LAYER, 0);
 		add(squares, SQUARES_LAYER, 0);
 		add(wormholes, WORMHOLES_LAYER, 0);
-		add(path, PATH_LAYER, 0);
+		add(pieces, PATH_LAYER, 0);
 	}
 	
 	@Override
@@ -83,10 +80,6 @@ public class StandardBoardMap extends JLayeredPane implements BoardMap {
 		squares.fillGrid(squareComponents);
 	}
 	
-	public void fillPathSquares(List<JComponent> squareComponents) {
-		path.fillGrid(squareComponents);
-	}
-	
 	public void addWormhole(WormholePainter wormhole) {
 		wormholes.addWormhole(wormhole);
 	}
@@ -96,27 +89,18 @@ public class StandardBoardMap extends JLayeredPane implements BoardMap {
 	}
 
 	@Override
-	public void addPiece(String id, PieceComponent piece) {
-		pieces.put(id, piece);
-		path.getSquare(piece.getCurrentSquareNr()).add(piece);
+	public void addPiece(String id, PiecePainter piece) {
+		pieces.addPiece(id, piece);
 	}
 
 	@Override
 	public void movePiece(String id, int targetSquareNr) {
-		PieceComponent piece = pieces.get(id);
-		
-		path.getSquare(targetSquareNr).add(piece);
-		piece.setCurrentSquareNr(targetSquareNr);
+		pieces.movePiece(id, targetSquareNr);
 	}
 
 	@Override
-	public PieceComponent removePiece(String id) {
-		PieceComponent piece = pieces.get(id);
-		
-		path.getSquare(piece.getCurrentSquareNr()).remove(piece);
-		pieces.remove(id);
-		
-		return piece;
+	public PiecePainter removePiece(String id) {
+		return pieces.removePiece(id);
 	}
 	
 	@Override
@@ -132,15 +116,12 @@ public class StandardBoardMap extends JLayeredPane implements BoardMap {
 		return squares;
 	}
 
-	public StandardBoardWormholes getWormholes() {
+	public StandardWormholesPanel getWormholes() {
 		return wormholes;
 	}
 
-	public StandardBoardGrid getPath() {
-		return path;
-	}
-
-	public Map<String, PieceComponent> getPieces() {
+	public StandardPiecesPanel getPieces() {
 		return pieces;
 	}
+	
 }
