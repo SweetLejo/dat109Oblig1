@@ -1,39 +1,48 @@
 package org.example.gui;
 
+import java.awt.Color;
+
+import javax.swing.undo.AbstractUndoableEdit;
+
 import org.example.db.BoardDAO;
 import org.example.gui.board.BoardMap;
 import org.example.snakesAndLadders.board.Board;
+import org.example.snakesAndLadders.board.Square;
+import org.example.snakesAndLadders.player.Player;
 
 public class GameController {
-
-	private BoardDAO dao;
 	
-	private GamePanel guiPanel;
+	private GamePanel gui;
+	private BoardDAO dao;
 	private Board board;
 	
-	public GameController(BoardMap map, Board board) {
-		this.dao = new BoardDAO();
-		this.guiPanel = new GamePanel(this, map);
-		this.board = board;
+	public GameController(BoardMap map, BoardDAO dao) {
+		this.dao = dao;
+		this.gui = new GamePanel(this, map);
+		this.board = dao.getBoard();
 	}
 	
 	public GamePanel getGamePanel() {
-		return guiPanel;
+		return gui;
 	}
 	
 	public void rollDice() {
-		System.out.println("Rolling dice...");
-		// roll dice for player and get updated position
+		Player currentPlayer = board.getCurrentPlayer();
 		
-		System.out.println("Moving piece...");
-		// get piece/player id and move to updated position
-
-		System.out.println("Updating current player...");
-		// update current player on screen
+		board.round();
+		moveGuiPiece(currentPlayer);
+		dao.saveExistingBoard();
+	}
+	
+	private void moveGuiPiece(Player player) {
+		int newSquareNr = player.getPosition().getValue();
 		
-		System.out.println("Saving gamestate...");
-		// save board in database
+		gui.movePiece(player.getPiece().toString(), newSquareNr);
+	}
+	
+	public void updateGui() {
 		
 	}
+	
 	
 }

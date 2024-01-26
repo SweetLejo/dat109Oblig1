@@ -3,6 +3,8 @@ package org.example.snakesAndLadders.player;
 import org.example.snakesAndLadders.board.Square;
 
 import javax.persistence.*;
+
+import java.awt.Color;
 import java.util.Random;
 
 
@@ -14,7 +16,7 @@ public class Player {
     @Column(name = "first_name")
     private String name;
 
-    @Transient
+    @Column(name = "piece")
     private Piece piece;
 
 
@@ -60,4 +62,12 @@ public class Player {
         return die.nextInt(1, 7);
     }
 
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", piece=" + piece +
+                ", position=" + position +
+                '}';
+    }
 }

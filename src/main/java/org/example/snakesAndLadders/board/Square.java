@@ -42,4 +42,13 @@ public class Square {
     public void setWormhole(Square wormhole) {
         this.wormhole = wormhole;
     }
+
+
+    @Override
+    public String toString() {
+        return "Square{" +
+                "value=" + value +
+                ", wormhole=" + wormhole +
+                '}';
+    }
 }

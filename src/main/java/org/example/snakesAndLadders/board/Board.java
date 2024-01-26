@@ -11,15 +11,23 @@ public class Board {
     private List<Square> squares;
     private List<Player> players;
 
+    private Player currentPlayer;
 
-    public Board(List<Player> players) {
 
 
+    public Board(List<Square> squares, List<Player> players) {
+    	this.squares = squares;
+    	this.players = players;
+    	setWormHoles();
     }
 
     public Board() {
 
     }
+/*
+    public Board(List<Square> squares){
+        this.squares = squares;
+    }*/
 
     private void setWormHoles(){
         Random random = new Random();
@@ -35,13 +43,17 @@ public class Board {
     }
 
     public void round(){
-        for(Player p : players){
-            int move = p.roll() + p.getPosition().getValue();
-            if(move < 100){
-                Square newPos = squares.get(move).getWormhole() == null ? squares.get(move) : squares.get(move).getWormhole();
-                p.setPosition(newPos);
-            }
+        int move = currentPlayer.roll() + currentPlayer.getPosition().getValue();
 
+        if(move < 100){
+            Square newPos = squares.get(move).getWormhole() == null ? squares.get(move) : squares.get(move).getWormhole();
+            currentPlayer.setPosition(newPos);
+        }
+        
+        for(int i = 0; i < players.size(); i++){
+            if(currentPlayer.equals(players.get(i))){
+                currentPlayer = players.get((i + 1) % players.size());
+            }
         }
     }
 
@@ -61,4 +73,20 @@ public class Board {
         this.players = players;
     }
 
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+    
+    @Override
+    public String toString() {
+        return "Board{" +
+                "squares=" + squares +
+                ", players=" + players +
+                '}';
+    }
+    
 }
