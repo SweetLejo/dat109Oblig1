@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-
 public class Board {
 
     private List<Square> squares;
@@ -14,12 +13,7 @@ public class Board {
 
 
     public Board(List<Player> players) {
-        this.players = players;
-        squares = IntStream.rangeClosed(1, 100).mapToObj(Square::new).toList();
 
-        setWormHoles();
-
-        players.forEach(p -> p.setPosition(squares.getFirst()));
 
     }
 
@@ -66,4 +60,5 @@ public class Board {
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
+
 }
