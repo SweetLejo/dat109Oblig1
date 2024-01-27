@@ -6,46 +6,76 @@ import org.example.snakesAndLadders.board.Square;
 import org.example.snakesAndLadders.player.Player;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
+
+/**
+ * @Author Leo
+ * persisting, merging, deleting entities from postgres db with jpa
+ */
 public class BoardDAO {
+
+
+    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PERSISTENCE");
 
     private Board board;
 
-
-    //do this in every method not the constructor
     public BoardDAO() {
     }
 
-    public BoardDAO(Board board){
+    public BoardDAO(Board board) {
         this.board = board;
     }
 
 
-    //create a new entity manager here and close it after the thing
-   public void writeSquare(Square square) {
-       EntityManager entityManager = Persistence.createEntityManagerFactory("PERSISTENCE").createEntityManager();
-       entityManager.getTransaction().begin();
-       entityManager.persist(square);
-       entityManager.getTransaction().commit();
-       entityManager.close();
+    /**
+     *
+     * @param square square to be added to board
+     */
+    public void writeSquare(Square square) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(square);
+            entityManager.getTransaction().commit();
+        } finally {
+            entityManager.close();
+        }
+    }
+
+
+    /**
+     *
+     * @param square to be deleted from board
+     */
+
+    public void deleteSquare(Square square){
+       EntityManager entityManager = entityManagerFactory.createEntityManager();
+       try {
+           entityManager.getTransaction().begin();
+           entityManager.remove(square);
+           entityManager.getTransaction().commit();
+       }finally {
+           entityManager.close();
+       }
    }
 
-   public void deleteSquare(Square square){
-       EntityManager entityManager = Persistence.createEntityManagerFactory("PERSISTENCE").createEntityManager();
-       entityManager.getTransaction().begin();
-       entityManager.remove(square);
-       entityManager.getTransaction().commit();
-       entityManager.close();
-   }
 
-   public void saveNewSquares(){
-       EntityManager entityManager = Persistence.createEntityManagerFactory("PERSISTENCE").createEntityManager();
-       entityManager.getTransaction().begin();
-       board.getSquares().forEach(entityManager::persist);
-       entityManager.getTransaction().commit();
-       entityManager.close();
+    /**
+     * save all squares from the board to the table
+     */
+
+    public void saveNewSquares(){
+       EntityManager entityManager = entityManagerFactory.createEntityManager();
+       try {
+           entityManager.getTransaction().begin();
+           board.getSquares().forEach(entityManager::persist);
+           entityManager.getTransaction().commit();
+       }finally {
+           entityManager.close();
+       }
    }
    
    /**
@@ -54,24 +84,50 @@ public class BoardDAO {
     * @param board to save
     */
    public void saveNewBoard(Board board) {
-	   // TODO
+       EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+       try {
+           // Begin a transaction
+           entityManager.getTransaction().begin();
+
+           // Delete all existing squares and players
+           entityManager.createQuery("DELETE FROM Square").executeUpdate();
+           entityManager.createQuery("DELETE FROM Player").executeUpdate();
+
+           // Persist the new board
+           board.getSquares().forEach(entityManager::persist);
+           board.getPlayers().forEach(entityManager::persist);
+
+           // Commit the transaction
+           entityManager.getTransaction().commit();
+       } finally {
+           // Close EntityManager
+           entityManager.close();
+       }
+
    }
    
    /**
     * Updates the existing entities of the board in the database
     */
    public void saveExistingBoard() {
-	   EntityManager entityManager = Persistence.createEntityManagerFactory("PERSISTENCE").createEntityManager();
-	   
-	   entityManager.getTransaction().begin();
-       board.getSquares().forEach(entityManager::merge);
-       board.getPlayers().forEach(entityManager::merge);
-       entityManager.getTransaction().commit();
-       entityManager.close();
+	   EntityManager entityManager = entityManagerFactory.createEntityManager();
+	   try{
+	       entityManager.getTransaction().begin();
+           board.getSquares().forEach(entityManager::merge);
+           board.getPlayers().forEach(entityManager::merge);
+           entityManager.getTransaction().commit();}
+       finally {
+           entityManager.close();
+       }
    }
 
+    /**
+     *
+     * @return the board that is saved in the database
+     */
    public Board getBoard(){
-        EntityManager entityManager = Persistence.createEntityManagerFactory("PERSISTENCE").createEntityManager();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<Square> squares = entityManager.createQuery("from Square" ).getResultList();
         List<Player> players = entityManager.createQuery("from Player").getResultList();
 

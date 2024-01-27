@@ -2,10 +2,14 @@ package org.example.snakesAndLadders.board;
 
 import org.example.snakesAndLadders.player.Player;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+/**
+ * @Author Leo
+ */
 public class Board {
 
     private List<Square> squares;
@@ -14,25 +18,37 @@ public class Board {
     private Player currentPlayer;
 
 
-
+    /**
+     *
+     * @param squares the 100 squares in a list that already have snakes and ladders
+     * @param players the players currently playing
+     */
     public Board(List<Square> squares, List<Player> players) {
     	this.squares = squares;
     	this.players = players;
-    	setWormHoles();
     }
 
     public Board() {
 
     }
-    
+
+
+    /**
+     * createNewBoardFactory statically return a board
+     * @param amountOfPlayers number of players to be allocated to the fielt
+     * @return board with players and
+     */
     public static Board createNewBoard(int amountOfPlayers) {
     	// TODO
-    	return null;
+        Board board = new Board();
+        board.setSquares(
+                IntStream.rangeClosed(0, 100).mapToObj(Square::new).toList()
+        );
+        board.setWormHoles();
+        board.setPlayers(Arrays.asList(new Player[amountOfPlayers]));
+    	return board;
     }
-/*
-    public Board(List<Square> squares){
-        this.squares = squares;
-    }*/
+
 
     private void setWormHoles(){
         Random random = new Random();
@@ -47,6 +63,10 @@ public class Board {
         }
     }
 
+
+    /**
+     * moves current player after die roll, and updates current player to next one in player array
+     */
     public void round(){
         int move = currentPlayer.roll() + currentPlayer.getPosition().getValue();
 
