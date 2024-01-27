@@ -57,12 +57,12 @@ public class BoardTest {
 
     @Test
     void testMerge(){
+        BoardDAO boardDAO = new BoardDAO(board);
+        board.getSquares().get(5).setWormhole(board.getSquares().get(15));
+        boardDAO.saveExistingBoard();
+        Board answerFromDB = boardDAO.getBoard();
 
-    }
-
-    @Test
-    void loadFromDB(){
-
+        assertEquals(board.getSquares().get(5), answerFromDB.getSquares().get(5));
     }
 
     @Test
@@ -90,5 +90,4 @@ public class BoardTest {
         assertEquals(current.getPosition(), board.getSquares().get(70));
 
     }
-
 }
