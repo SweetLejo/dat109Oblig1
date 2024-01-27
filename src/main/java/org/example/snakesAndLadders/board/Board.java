@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 /**
- * @Author Leo
+ * @author Leo
  */
 public class Board {
 
@@ -26,6 +26,8 @@ public class Board {
     public Board(List<Square> squares, List<Player> players) {
     	this.squares = squares;
     	this.players = players;
+        this.currentPlayer = players.getFirst();
+        players.forEach(p -> p.setPosition(squares.getFirst()));
     }
 
     public Board() {
@@ -35,23 +37,25 @@ public class Board {
 
     /**
      * createNewBoardFactory statically return a board
-     * @param amountOfPlayers number of players to be allocated to the fielt
+     * @param players who will be playing
      * @return board with players and
      */
-    public static Board createNewBoard(int amountOfPlayers) {
+    public static Board createNewBoard(List<Player> players) {
     	// TODO
         Board board = new Board();
         board.setSquares(
-                IntStream.rangeClosed(0, 100).mapToObj(Square::new).toList()
+                IntStream.rangeClosed(0, 99).mapToObj(Square::new).toList()
         );
         board.setWormHoles();
-        board.setPlayers(Arrays.asList(new Player[amountOfPlayers]));
+        board.setPlayers(players);
+        board.setCurrentPlayer(board.getPlayers().getFirst());
+        board.players.forEach(p -> p.setPosition(board.squares.getFirst()));
     	return board;
     }
 
 
     /**
-     * automatically set the ladders and snakes if you're to lazy
+     * set the ladders and snakes randomly
      */
     private void setWormHoles(){
         Random random = new Random();
@@ -73,14 +77,36 @@ public class Board {
     public void round(){
         int move = currentPlayer.roll() + currentPlayer.getPosition().getValue();
 
+        moveToPosAndChangePlayer(move);
+    }
+
+    /**
+     * move without randomized new position
+     * @param number
+     */
+    public void roundRiggedDie(int number){
+        int move = currentPlayer.getPosition().getValue() + number;
+        moveToPosAndChangePlayer(move);
+    }
+
+    /**
+     * change current player to next in list and
+     * @param move new position for current player
+     */
+    private void moveToPosAndChangePlayer(int move){
         if(move < 100){
             Square newPos = squares.get(move).getWormhole() == null ? squares.get(move) : squares.get(move).getWormhole();
             currentPlayer.setPosition(newPos);
         }
-        
-        for(int i = 0; i < players.size(); i++){
+        changeCurrent();
+    }
+
+    private void changeCurrent(){
+        boolean changed = false;
+        for(int i = 0; i < players.size() && !changed; i++){
             if(currentPlayer.equals(players.get(i))){
                 currentPlayer = players.get((i + 1) % players.size());
+                changed = true;
             }
         }
     }

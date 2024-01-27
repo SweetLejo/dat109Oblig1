@@ -5,6 +5,7 @@ import org.example.snakesAndLadders.board.Square;
 import javax.persistence.*;
 
 import java.awt.Color;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -68,6 +69,21 @@ public class Player {
     public int roll(){
         Random die = new Random();
         return die.nextInt(1, 7);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Player player = (Player) o;
+
+        return player.getName().equals(this.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 
     @Override
