@@ -32,6 +32,7 @@ public class BoardTest {
 
     @Test
     void testMove(){
+        board.getCurrentPlayer();
 
     }
 

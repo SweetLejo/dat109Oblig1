@@ -4,6 +4,11 @@ import org.example.snakesAndLadders.player.Player;
 
 import javax.persistence.*;
 
+
+/**
+ * Entity class, each row = square in board table
+ * @Author Leo
+ */
 @Entity
 @Table(schema = "dat109_oblig1", name = "board")
 public class Square {

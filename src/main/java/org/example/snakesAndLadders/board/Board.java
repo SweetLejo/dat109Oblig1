@@ -50,6 +50,9 @@ public class Board {
     }
 
 
+    /**
+     * automatically set the ladders and snakes if you're to lazy
+     */
     private void setWormHoles(){
         Random random = new Random();
         for(int i = 0 ; i < 15 ; i++) {
@@ -102,6 +105,10 @@ public class Board {
         return currentPlayer;
     }
 
+    /**
+     * changes who the current player is (will affect the round() method)
+     * @param currentPlayer the new currentPlayer
+     */
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }

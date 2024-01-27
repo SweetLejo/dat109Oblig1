@@ -8,6 +8,9 @@ import java.awt.Color;
 import java.util.Random;
 
 
+/**
+ * @author leo
+ */
 @Entity
 @Table(name = "player", schema = "dat109_oblig1")
 public class Player {
@@ -37,6 +40,11 @@ public class Player {
         return position;
     }
 
+
+    /**
+     *
+     * @param position new position of player
+     */
     public void setPosition(Square position) {
         this.position = position;
     }
