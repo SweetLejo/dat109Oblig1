@@ -129,15 +129,30 @@ public class BoardDAO {
      */
    public Board getBoard(){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Square> squares = entityManager.createQuery("from Square" ).getResultList();
-        List<Player> players = entityManager.createQuery("from Player").getResultList();
+        try {
+            List<Square> squares = entityManager.createQuery("from Square" ).getResultList();
+            List<Player> players = entityManager.createQuery("from Player").getResultList();
 
-        Board board = new Board();
-        board.setSquares(squares);
-        board.setPlayers(players);
-
+            Board board = null;
+            board = new Board();
+            board.setSquares(squares);
+            board.setPlayers(players);
+        } finally{
+           entityManager.close();
+        }
         return board;
+   }
 
+
+   public void savePlayer(Player player){
+       EntityManager entityManager = entityManagerFactory.createEntityManager();
+       try {
+           entityManager.getTransaction().begin();
+           entityManager.merge(player);
+           entityManager.getTransaction().commit();
+       } finally {
+           entityManager.close();
+       }
 
    }
 

@@ -9,7 +9,7 @@ create table board(
   );
 
 create table player(
-	first_name varchar(30) primary key,
+  first_name varchar(30) primary key,
   place integer references board,
   piece varchar(30)
 );

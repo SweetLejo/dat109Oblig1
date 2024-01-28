@@ -62,7 +62,6 @@ public class BoardTest {
         System.out.println(board.getPlayers().size());
         System.out.println(answerFromDB.getPlayers().size());
 
-
         assertEquals(board.getSquares().get(5), answerFromDB.getSquares().get(5));
     }
 
