@@ -25,7 +25,7 @@ public class Player {
     private Piece piece;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(referencedColumnName = "square", name = "place")
     private Square position;
 

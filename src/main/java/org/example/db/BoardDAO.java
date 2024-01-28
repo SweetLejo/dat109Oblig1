@@ -137,13 +137,17 @@ public class BoardDAO {
             board = new Board();
             board.setSquares(squares);
             board.setPlayers(players);
+            board.setCurrentPlayer(players.getFirst());
         } finally{
            entityManager.close();
         }
         return board;
    }
 
-
+    /**
+     *
+     * @param player player to be saved
+     */
    public void savePlayer(Player player){
        EntityManager entityManager = entityManagerFactory.createEntityManager();
        try {

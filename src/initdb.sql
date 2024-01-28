@@ -5,12 +5,12 @@ set search_path to dat109_oblig1;
 
 create table board(
   square INTEGER primary key,
-  wormhole Integer references board
+  wormhole Integer references board on update delete
   );
 
 create table player(
   first_name varchar(30) primary key,
-  place integer references board,
+  place integer references board on update delete,
   piece varchar(30)
 );
 

@@ -19,7 +19,7 @@ public class Square {
     private int value;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(referencedColumnName = "square", name = "wormhole", nullable = true)
     private Square wormhole;
 
