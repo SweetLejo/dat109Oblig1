@@ -3,10 +3,7 @@ import org.example.snakesAndLadders.board.Board;
 import org.example.snakesAndLadders.board.Square;
 import org.example.snakesAndLadders.player.Piece;
 import org.example.snakesAndLadders.player.Player;
-import org.junit.jupiter.api.AssertionsKt;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class BoardTest {
 
     private Board board;
-    @BeforeAll
+    @BeforeEach
     void setup(){
         List<Square> squares = IntStream.rangeClosed(0, 100).mapToObj(Square::new).toList();
         squares.get(10).setWormhole(squares.get(20));
@@ -61,6 +58,10 @@ public class BoardTest {
         board.getSquares().get(5).setWormhole(board.getSquares().get(15));
         boardDAO.saveExistingBoard();
         Board answerFromDB = boardDAO.getBoard();
+
+        System.out.println(board.getPlayers().size());
+        System.out.println(answerFromDB.getPlayers().size());
+
 
         assertEquals(board.getSquares().get(5), answerFromDB.getSquares().get(5));
     }

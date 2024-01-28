@@ -10,6 +10,7 @@ import java.util.Random;
 
 
 /**
+ * pretty standard entity class
  * @author leo
  */
 @Entity
@@ -24,7 +25,7 @@ public class Player {
     private Piece piece;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "square", name = "place")
     private Square position;
 

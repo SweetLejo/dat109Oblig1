@@ -104,6 +104,7 @@ public class BoardDAO {
            // Close EntityManager
            entityManager.close();
        }
+       this.board = board;
 
    }
    
@@ -116,8 +117,8 @@ public class BoardDAO {
 	       entityManager.getTransaction().begin();
            board.getSquares().forEach(entityManager::merge);
            board.getPlayers().forEach(entityManager::merge);
-           entityManager.getTransaction().commit();}
-       finally {
+           entityManager.getTransaction().commit();
+       } finally {
            entityManager.close();
        }
    }
