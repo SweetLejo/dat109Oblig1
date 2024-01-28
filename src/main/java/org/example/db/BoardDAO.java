@@ -91,8 +91,9 @@ public class BoardDAO {
            entityManager.getTransaction().begin();
 
            // Delete all existing squares and players
-           entityManager.createQuery("DELETE FROM Square").executeUpdate();
+
            entityManager.createQuery("DELETE FROM Player").executeUpdate();
+           entityManager.createQuery("DELETE FROM Square").executeUpdate();
 
            // Persist the new board
            board.getSquares().forEach(entityManager::persist);
