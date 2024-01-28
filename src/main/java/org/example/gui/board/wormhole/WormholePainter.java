@@ -20,7 +20,7 @@ public abstract class WormholePainter {
 	public WormholePainter(int startSquareNr, int endSquareNr) {
 		this.startSquareNr = startSquareNr;
 		this.endSquareNr = endSquareNr;
-		this.type = startSquareNr > endSquareNr ? Type.LADDER : Type.SNAKE;
+		this.type = startSquareNr < endSquareNr ? Type.LADDER : Type.SNAKE;
 	}
 	
 	public abstract void drawWormhole(Graphics g, Rectangle from, Rectangle to);

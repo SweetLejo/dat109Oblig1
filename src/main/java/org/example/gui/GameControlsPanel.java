@@ -13,30 +13,27 @@ public class GameControlsPanel extends JPanel {
 
 	private JLabel currentPlayerLabel;
 	private JButton rollDiceButton;
+	private JLabel previousDieRollLabel;
 	
 	public GameControlsPanel() {
 		super(new FlowLayout());
-		this.currentPlayerLabel = createCurrentPlayerLabel();
-		this.rollDiceButton = createRollDiceButton();
+		this.currentPlayerLabel = new JLabel();
+		this.rollDiceButton = new JButton("Roll dice");
+		this.previousDieRollLabel = new JLabel("?");
 		
+		add(new JLabel("Current player:"));
 		add(currentPlayerLabel);
+		add(new JLabel("Previous die roll:"));
+		add(previousDieRollLabel);
 		add(rollDiceButton);
 	}
 	
-	private static JLabel createCurrentPlayerLabel() {
-		JLabel label = new JLabel();
-		
-		return label;
-	}
-	
-	private static JButton createRollDiceButton() {
-		JButton button = new JButton("Roll dice");
-		
-		return button;
-	}
-	
 	public void setCurrentPlayer(String currentPlayer) {
-		currentPlayerLabel.setText(currentPlayer);
+		currentPlayerLabel.setText(currentPlayer + " ");
+	}
+	
+	public void setPreviousDieRoll(int dieRoll) {
+		previousDieRollLabel.setText("" + dieRoll + " ");
 	}
 	
 	public void setOnRollDice(ActionListener onClick) {

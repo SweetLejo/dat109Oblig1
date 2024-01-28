@@ -28,7 +28,7 @@ public class StandardBoardGrid extends JPanel implements BoardMapSquares {
 		this.amountOfColumns = amountOfColumns;
 		this.cells = new HashMap<>();
 		
-		int squareNr = 1;
+		int squareNr = 0;
 		
 		for(int i = amountOfRows - 1; i >= 0 ; i--) {
 			for(int j = 0; i % 2 != 0 && j < amountOfColumns; j++) {
@@ -49,7 +49,7 @@ public class StandardBoardGrid extends JPanel implements BoardMapSquares {
 	
 	public void fillGrid(List<JComponent> squares) {
 		for(int i = 0; i < squares.size(); i++) {
-			setSquare(i + 1, squares.get(i));
+			setSquare(i, squares.get(i));
 		}
 	}
  

@@ -47,6 +47,10 @@ public class Square {
     public void setWormhole(Square wormhole) {
         this.wormhole = wormhole;
     }
+    
+    public boolean hasWormhole() {
+    	return wormhole != null;
+    }
 
 
     @Override

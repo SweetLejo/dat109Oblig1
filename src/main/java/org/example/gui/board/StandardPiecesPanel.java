@@ -46,7 +46,7 @@ public class StandardPiecesPanel extends JPanel {
 	protected Rectangle computePieceBounds(String id) {
 		PiecePainter piece = pieces.get(id);
 		int paintedInSquareCount = findPaintedPiecesInSquareCount(id, piece);
-		
+
 		Rectangle squareBounds = squares.getSquare(piece.getCurrentSquareNr()).getBounds();
 		int x = (int) squareBounds.getX();
 		int y = (int) squareBounds.getY();

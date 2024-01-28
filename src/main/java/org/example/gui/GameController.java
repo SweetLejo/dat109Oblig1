@@ -6,43 +6,58 @@ import javax.swing.undo.AbstractUndoableEdit;
 
 import org.example.db.BoardDAO;
 import org.example.gui.board.BoardMap;
+import org.example.gui.board.factory.BoardMapFactory;
 import org.example.snakesAndLadders.board.Board;
 import org.example.snakesAndLadders.board.Square;
 import org.example.snakesAndLadders.player.Player;
 
-public class GameController {
+public class GameController implements GUIController {
 	
-	private GamePanel gui;
 	private BoardDAO dao;
 	private Board board;
+	private BoardMap map;
 	
-	public GameController(BoardMap map, BoardDAO dao) {
+	private GamePanel guiPanel;
+	
+	public GameController(BoardDAO dao, Board board, BoardMap map) {
 		this.dao = dao;
-		this.gui = new GamePanel(this, map);
-		this.board = dao.getBoard();
-	}
-	
-	public GamePanel getGamePanel() {
-		return gui;
+		this.board = board;
+		this.map = map;
+		this.guiPanel = new GamePanel(this);
+		
+		updateDisplayedCurrentPlayer();
 	}
 	
 	public void rollDice() {
 		Player currentPlayer = board.getCurrentPlayer();
+		int dieRoll = board.round();
 		
-		board.round();
-		moveGuiPiece(currentPlayer);
-		dao.saveExistingBoard();
+		updateDisplayedDieRoll(dieRoll);
+		moveDisplayedPlayerPiece(currentPlayer);
+		updateDisplayedCurrentPlayer();
+		
+		dao.savePlayer(currentPlayer);
 	}
 	
-	private void moveGuiPiece(Player player) {
-		int newSquareNr = player.getPosition().getValue();
-		
-		gui.movePiece(player.getPiece().toString(), newSquareNr);
+	private void updateDisplayedDieRoll(int dieRoll) {
+		guiPanel.updatePreviousDieRoll(dieRoll);
 	}
 	
-	public void updateGui() {
-		
+	private void moveDisplayedPlayerPiece(Player player) {
+		map.movePiece(player.getName(), player.getPosition().getValue());
+	}
+
+	private void updateDisplayedCurrentPlayer() {
+		guiPanel.updateCurrentPlayer(board.getCurrentPlayer().getName());
 	}
 	
+
+	public GamePanel getGUIPanel() {
+		return guiPanel;
+	}
+	
+	public BoardMap getBoardMap() {
+		return map;
+	}
 	
 }

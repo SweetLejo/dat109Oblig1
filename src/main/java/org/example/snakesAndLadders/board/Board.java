@@ -17,7 +17,6 @@ public class Board {
 
     private Player currentPlayer;
 
-
     /**
      *
      * @param squares the 100 squares in a list that already have snakes and ladders
@@ -33,7 +32,6 @@ public class Board {
     public Board() {
 
     }
-
 
     /**
      * createNewBoardFactory statically return a board
@@ -53,7 +51,6 @@ public class Board {
     	return board;
     }
 
-
     /**
      * set the ladders and snakes randomly
      */
@@ -70,14 +67,17 @@ public class Board {
         }
     }
 
-
     /**
      * moves current player after die roll, and updates current player to next one in player array
+     * @return the die roll result
      */
-    public void round(){
-        int move = currentPlayer.roll() + currentPlayer.getPosition().getValue();
+    public int round(){
+    	int dieRoll = currentPlayer.roll();
+        int move = dieRoll + currentPlayer.getPosition().getValue();
 
         moveToPosAndChangePlayer(move);
+        
+        return dieRoll;
     }
 
     /**

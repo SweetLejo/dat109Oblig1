@@ -134,12 +134,13 @@ public class BoardDAO {
             List<Square> squares = entityManager.createQuery("from Square" ).getResultList();
             List<Player> players = entityManager.createQuery("from Player").getResultList();
 
-            Board board = null;
+           	board = null;
             board = new Board();
             board.setSquares(squares);
             board.setPlayers(players);
             board.setCurrentPlayer(players.getFirst());
-        } finally{
+        } finally {
+        	System.err.println("Rrror getting stored board");
            entityManager.close();
         }
         return board;

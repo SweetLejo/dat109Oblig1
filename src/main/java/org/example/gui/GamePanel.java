@@ -14,13 +14,14 @@ public class GamePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private GameController controller;
+	
 	private GameBoardPanel boardPanel;
 	private GameControlsPanel controlsPanel;
 	
-	public GamePanel(GameController controller, BoardMap map) {
+	public GamePanel(GameController controller) {
 		super(new BorderLayout());
 		this.controller = controller;
-		this.boardPanel = new GameBoardPanel(map);
+		this.boardPanel = new GameBoardPanel(controller.getBoardMap());
 		this.controlsPanel = new GameControlsPanel();
 		
 		controlsPanel.setOnRollDice(e -> onRollDice());
@@ -35,6 +36,10 @@ public class GamePanel extends JPanel {
 	
 	public void updateCurrentPlayer(String currentPlayer) {
 		controlsPanel.setCurrentPlayer(currentPlayer);
+	}
+	
+	public void updatePreviousDieRoll(int dieRoll) {
+		controlsPanel.setPreviousDieRoll(dieRoll);
 	}
 	
 	public void movePiece(String id, int targetSquareNr) {

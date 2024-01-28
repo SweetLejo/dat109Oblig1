@@ -6,6 +6,9 @@ import java.awt.Rectangle;
 
 import javax.swing.JComponent;
 
+/**
+ * Paints wormholes as lines, where ladders are green lines, and snakes are red lines
+ */
 public class LineWormholePainter extends WormholePainter {
 
 	private static final long serialVersionUID = 1L;
@@ -24,7 +27,8 @@ public class LineWormholePainter extends WormholePainter {
 		
 		g.setColor(color);
 		g.drawLine(fromX, fromY, toX, toY);
+		g.drawLine(fromX - 1, fromY, toX - 1, toY);
+		g.drawLine(fromX + 1, fromY, toX + 1, toY);
 	}
-
 
 }
