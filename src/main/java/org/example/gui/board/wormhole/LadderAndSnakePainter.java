@@ -1,5 +1,6 @@
 package org.example.gui.board.wormhole;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
@@ -18,12 +19,15 @@ public class LadderAndSnakePainter extends WormholePainter {
 		if(type == Type.LADDER) {
 			drawLadder(g, from, to);
 		} else {
-			drawSnake(g, from, to);
+//			drawSnake(g, from, to);
+			new LineWormholePainter(startSquareNr, endSquareNr).drawWormhole(g, from, to);
 		}
 	}
 	
 	private void drawLadder(Graphics g, Rectangle from, Rectangle to) {
-		System.out.println("painting ladder from " + startSquareNr + " to " + endSquareNr);
+		System.out.println("Painting ladder from " + startSquareNr + " to " + endSquareNr);
+		
+		g.setColor(new Color(5, 5, 90));
 		
 		// Global vectors pointing to the center of the start and end squares
 		Vector2 startCenter = new Vector2(from.getCenterX(), from.getCenterY()); 
@@ -65,13 +69,42 @@ public class LadderAndSnakePainter extends WormholePainter {
 	}
 	
 	private static void drawLine(Graphics g, Vector2 start, Vector2 end) {
-		g.drawLine((int) start.x(), (int) start.y(), (int) end.x(), (int) end.y());
+		g.drawLine(
+				(int) start.x(), (int) start.y(), 
+				(int) end.x(), (int) end.y());
 	}
 	
 	private void drawSnake(Graphics g, Rectangle from, Rectangle to) {
+		System.out.println("Painting snake from " + startSquareNr + " to " + endSquareNr);
 		
+		g.setColor(new Color(120, 10, 10));
+		
+		// Global vectors pointing to the center of the start and end squares
+		Vector2 startCenter = new Vector2(from.getCenterX(), from.getCenterY()); 
+		Vector2 endCenter = new Vector2(to.getCenterX(), to.getCenterY());
+		
+		// Local vector pointing in the direction from start to end
+		Vector2 startToEnd = endCenter.minus(startCenter);
+		
+		// Vectors pointing to the middle between start and end square
+		Vector2 localMiddle = startToEnd.scaled(0.5);
+		Vector2 globalMiddle = startCenter.minus(localMiddle);
+		
+		double radius = localMiddle.magnitude();
+		double width = radius * 2;
+		double height = width;
+		
+		double startAngle = Math.toDegrees(startToEnd.angle()) + 45;
+		double endAngle = Math.toDegrees(startToEnd.scaled(-1).angle()) + 45;
+		 System.out.println(globalMiddle + " " + radius);
+		drawArc(g, globalMiddle, width, height, endAngle, startAngle);
 	}
 	
-	
+	private static void drawArc(Graphics g, Vector2 middle, double width, double height, double startAngle, double endAngle) {
+		g.drawArc(
+				(int) middle.x(), (int) middle.y(), 
+				(int) width, (int) height, 
+				(int) 0, (int) 359);
+	}
 	
 }
