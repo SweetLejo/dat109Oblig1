@@ -18,7 +18,6 @@ public class GameBoardPanel extends JPanel {
 	private BoardMap map;
 	
 	public GameBoardPanel(BoardMap map) {
-		super(new BorderLayout());
 		setMap(map);
 	}
 	
@@ -47,7 +46,7 @@ public class GameBoardPanel extends JPanel {
 	private static void resizeToSquare(JComponent board, JPanel container) {
 		int width = container.getWidth();
 		int height = container.getHeight();
-		int size = Math.min(width, height);
+		int size = Math.min(width, height) - 5;
 		
 		board.setPreferredSize(new Dimension(size, size));
 		container.revalidate();

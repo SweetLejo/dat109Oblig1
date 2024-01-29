@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import org.example.db.BoardDAO;
 import org.example.gui.board.BoardMap;
 import org.example.gui.board.StandardBoardBuilder;
+import org.example.gui.board.factory.BetterBoardMapFactory;
 import org.example.gui.board.factory.BoardMapFactory;
 import org.example.gui.board.factory.SimpleBoardMapFactory;
 import org.example.gui.board.piece.CirclePiecePainter;
@@ -34,7 +35,7 @@ public class MenuController implements GUIController {
 	
 	public MenuController(BoardDAO dao) {
 		this.dao = dao;
-		this.mapFactory = new SimpleBoardMapFactory();
+		this.mapFactory = new BetterBoardMapFactory();
 		this.guiPanel = new MenuPanel(this);
 	}
 	
