@@ -54,14 +54,14 @@ public class LadderAndSnakePainter extends WormholePainter {
 		double currentStepHeight = stepSpaceDistance;
 		
 		while(currentStepHeight < ladderHeight) {
+			Vector2 localStepHeight = startToEnd.scaledToMagnitude(currentStepHeight);
+			Vector2 globalStepStart = globalStart1.plus(localStepHeight);
+			Vector2 globalStepEnd = globalStart2.plus(localStepHeight);
+			
+			drawLine(g, globalStepStart, globalStepEnd);
 			
 			currentStepHeight += stepSpaceDistance;
 		}
-	}
-	
-	private static void drawLadder(Graphics g, Vector2 start1, Vector2 start2, Vector2 end1, Vector2 end2) {
-		drawLine(g, start1, end1);
-		drawLine(g, start2, end2);
 	}
 	
 	private static void drawLine(Graphics g, Vector2 start, Vector2 end) {
