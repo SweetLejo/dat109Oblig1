@@ -25,8 +25,8 @@ public class Board {
     public Board(List<Square> squares, List<Player> players) {
     	this.squares = squares;
     	this.players = players;
-        this.currentPlayer = players.getFirst();
-        players.forEach(p -> p.setPosition(squares.getFirst()));
+        this.currentPlayer = players.get(0);
+        players.forEach(p -> p.setPosition(squares.get(0)));
     }
 
     public Board() {
@@ -46,8 +46,8 @@ public class Board {
         );
         board.setWormHoles();
         board.setPlayers(players);
-        board.setCurrentPlayer(board.getPlayers().getFirst());
-        board.players.forEach(p -> p.setPosition(board.squares.getFirst()));
+        board.setCurrentPlayer(board.getPlayers().get(0));
+        board.players.forEach(p -> p.setPosition(board.squares.get(0)));
     	return board;
     }
 

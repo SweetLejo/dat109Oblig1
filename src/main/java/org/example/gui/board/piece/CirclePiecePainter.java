@@ -19,10 +19,10 @@ public class CirclePiecePainter extends PiecePainter {
 
 	@Override
 	public void drawPiece(Graphics g, Rectangle bounds) {
-		int x = (int) bounds.getX();
-		int y = (int) bounds.getY();
-		int width = (int) bounds.getWidth();
-		int height = (int) bounds.getHeight();
+		int x = (int) bounds.getX() + 2;
+		int y = (int) bounds.getY() + 2;
+		int width = (int) bounds.getWidth() - 4;
+		int height = (int) bounds.getHeight() - 4;
 		
 		g.setColor(color);
 		g.fillOval(x, y, width, height);
