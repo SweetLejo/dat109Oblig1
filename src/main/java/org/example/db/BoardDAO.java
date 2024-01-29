@@ -140,8 +140,7 @@ public class BoardDAO {
             board.setPlayers(players);
             board.setCurrentPlayer(players.getFirst());
         } finally {
-        	System.err.println("Rrror getting stored board");
-           entityManager.close();
+        	entityManager.close();
         }
         return board;
    }

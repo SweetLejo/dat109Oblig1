@@ -51,7 +51,6 @@ public class GameController implements GUIController {
 		guiPanel.updateCurrentPlayer(board.getCurrentPlayer().getName());
 	}
 	
-
 	public GamePanel getGUIPanel() {
 		return guiPanel;
 	}
