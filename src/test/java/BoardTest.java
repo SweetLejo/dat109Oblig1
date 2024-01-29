@@ -85,6 +85,20 @@ public class BoardTest {
         board.roundRiggedDie(80 - oldPos);
 
         assertEquals(current.getPosition(), board.getSquares().get(70));
+    }
+
+
+    @Test
+    void testSavePlayer(){
+        Player pToSave = board.getCurrentPlayer();
+        int oldPosition = pToSave.getPosition().getValue();
+
+        pToSave.setPosition(board.getSquares().get(50));
+
+        BoardDAO boardDAO = new BoardDAO(board);
+        boardDAO.savePlayer(pToSave);
+
 
     }
+
 }
