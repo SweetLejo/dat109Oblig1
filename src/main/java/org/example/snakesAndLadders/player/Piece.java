@@ -23,6 +23,6 @@ public enum Piece {
 
         return Arrays.stream(Piece.values())
                 .filter(p -> p.toString().equals(color.toUpperCase()))
-                .toList().getFirst();
+                .toList().get(0);
     }
 }

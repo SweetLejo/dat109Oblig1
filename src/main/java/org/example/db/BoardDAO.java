@@ -138,7 +138,7 @@ public class BoardDAO {
             board = new Board();
             board.setSquares(squares);
             board.setPlayers(players);
-            board.setCurrentPlayer(players.getFirst());
+            board.setCurrentPlayer(players.get(0));
         } finally {
         	entityManager.close();
         }
