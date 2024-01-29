@@ -9,8 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -39,7 +38,15 @@ public class BoardTest {
         board.roundRiggedDie(5);
         assertNotEquals(current, board.getCurrentPlayer());
         assertEquals(currentPos + 5, current.getPosition().getValue());
+    }
 
+    @Test
+    void testMoveToFar(){
+        Player current = board.getCurrentPlayer();
+        current.setPosition(board.getSquares().get(99));
+        board.roundRiggedDie(5);
+        assertNotEquals(current, board.getCurrentPlayer());
+        assertEquals(99, current.getPosition().getValue());
     }
 
     @Test
@@ -98,6 +105,7 @@ public class BoardTest {
         BoardDAO boardDAO = new BoardDAO(board);
         boardDAO.savePlayer(pToSave);
 
+        assertTrue(boardDAO.getBoard().getPlayers().contains(pToSave));
 
     }
 
