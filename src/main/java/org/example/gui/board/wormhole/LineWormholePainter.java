@@ -27,8 +27,8 @@ public class LineWormholePainter extends WormholePainter {
 		
 		g.setColor(color);
 		g.drawLine(fromX, fromY, toX, toY);
-		g.drawLine(fromX - 1, fromY, toX - 1, toY);
-		g.drawLine(fromX + 1, fromY, toX + 1, toY);
+		g.drawLine(fromX - 1, fromY - 1, toX - 1, toY -1);
+		g.drawLine(fromX + 1, fromY + 1, toX + 1, toY + 1);
 	}
 
 }
