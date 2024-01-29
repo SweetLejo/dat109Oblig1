@@ -76,7 +76,7 @@ public class StandardBoardMap extends JLayeredPane implements BoardMap {
 		this.background = background;
 	}
 	
-	public void fillMapSquares(List<JComponent> squareComponents) {
+	public void fillMapSquares(SquareFactory squareComponents) {
 		squares.fillGrid(squareComponents);
 	}
 	

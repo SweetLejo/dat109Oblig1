@@ -23,17 +23,17 @@ public class LadderAndSnakePainter extends WormholePainter {
 	}
 	
 	private void drawLadder(Graphics g, Rectangle from, Rectangle to) {
-		System.out.println(super.startSquareNr + " to " + super.endSquareNr);
+		System.out.println("painting ladder from " + startSquareNr + " to " + endSquareNr);
 		
 		// Global vectors pointing to the center of the start and end squares
 		Vector2 startCenter = new Vector2(from.getCenterX(), from.getCenterY()); 
-		Vector2 endCenter = new Vector2(to.getCenterX(), from.getCenterY());
+		Vector2 endCenter = new Vector2(to.getCenterX(), to.getCenterY());
 		
 		// Local vector pointing in the direction from start to end
-		Vector2 startToEndDirection = endCenter.minus(startCenter);
-		
+		Vector2 startToEnd = endCenter.minus(startCenter);
+
 		// Local vector perpendicular (90 degrees relative) to the direction of start to end
-		Vector2 perpendicularDirection = startToEndDirection.perpendicular();
+		Vector2 perpendicularDirection = startToEnd.perpendicular();
 		
 		double ladderWidth = from.getWidth() / 3;
 		
@@ -45,8 +45,18 @@ public class LadderAndSnakePainter extends WormholePainter {
 		Vector2 globalStart2 = startCenter.minus(localHorizontalEdge);
 		Vector2 globalEnd1 = endCenter.plus(localHorizontalEdge);
 		Vector2 globalEnd2 = endCenter.minus(localHorizontalEdge);
+
+		drawLine(g, globalStart1, globalEnd1);
+		drawLine(g, globalStart2, globalEnd2);
 		
-		drawLadder(g, globalStart1, globalStart2, globalEnd1, globalEnd2);
+		double ladderHeight = startToEnd.magnitude();
+		double stepSpaceDistance = ladderWidth / 2;
+		double currentStepHeight = stepSpaceDistance;
+		
+		while(currentStepHeight < ladderHeight) {
+			
+			currentStepHeight += stepSpaceDistance;
+		}
 	}
 	
 	private static void drawLadder(Graphics g, Vector2 start1, Vector2 start2, Vector2 end1, Vector2 end2) {

@@ -100,5 +100,10 @@ public record Vector2(double x, double y) {
     public double dot(Vector2 other) {
         return this.x * other.x + this.y * other.y;
     }
+    
+    @Override
+    public String toString() {
+    	return "x=" + x + ",y=" + y;
+    }
 	
 }

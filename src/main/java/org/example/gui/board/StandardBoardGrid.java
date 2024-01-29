@@ -40,16 +40,9 @@ public class StandardBoardGrid extends JPanel implements BoardMapSquares {
 		}
 	}
 	
-	public StandardBoardGrid(int amountOfRows, int amountOfColumns, 
-			List<JComponent> squares) {
-		this(amountOfRows, amountOfColumns);
-		
-		fillGrid(squares);
-	}
-	
-	public void fillGrid(List<JComponent> squares) {
-		for(int i = 0; i < squares.size(); i++) {
-			setSquare(i, squares.get(i));
+	public void fillGrid(SquareFactory squares) {
+		for(int i = 0; i < getGridSize(); i++) {
+			setSquare(i, squares.create(i));
 		}
 	}
  

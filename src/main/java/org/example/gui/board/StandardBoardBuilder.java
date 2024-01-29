@@ -22,7 +22,7 @@ public class StandardBoardBuilder {
 	}
 	
 	public StandardBoardBuilder withMapSquares(SquareFactory squareFactory) {
-		map.fillMapSquares(squareFactory.createList(map.getGridSize()));
+		map.fillMapSquares(squareFactory);
 		
 		return this;
 	}

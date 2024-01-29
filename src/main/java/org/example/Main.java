@@ -7,8 +7,8 @@ import org.example.gui.MenuController;
 public class Main {
 
 	public static void main(String[] args) {
-		MenuController menuController = new MenuController(new BoardDAO());
 		GUIManager guiManager = GUIManager.getInstance();
+		MenuController menuController = new MenuController(new BoardDAO());
 		
 		guiManager.setContentPanel(menuController.getGUIPanel());
 		guiManager.displayGUI();
