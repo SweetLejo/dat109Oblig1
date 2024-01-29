@@ -59,9 +59,6 @@ public class BoardTest {
         boardDAO.saveExistingBoard();
         Board answerFromDB = boardDAO.getBoard();
 
-        System.out.println(board.getPlayers().size());
-        System.out.println(answerFromDB.getPlayers().size());
-
         assertEquals(board.getSquares().get(5), answerFromDB.getSquares().get(5));
     }
 

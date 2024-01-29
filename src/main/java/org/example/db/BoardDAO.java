@@ -133,17 +133,21 @@ public class BoardDAO {
         try {
             List<Square> squares = entityManager.createQuery("from Square" ).getResultList();
             List<Player> players = entityManager.createQuery("from Player").getResultList();
-
+            squares.sort((a, b) -> a.getValue() - b.getValue());
            	board = null;
             board = new Board();
             board.setSquares(squares);
             board.setPlayers(players);
             board.setCurrentPlayer(players.get(0));
+
+            squares.forEach(System.out::println);
+
         } finally {
         	entityManager.close();
         }
         return board;
    }
+
 
     /**
      *
